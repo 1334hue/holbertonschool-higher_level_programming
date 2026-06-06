@@ -10,7 +10,7 @@ def fizzbuzz():
         else:
             print("{}".format(i), end="")
         
-        # Add space unless it's the last element
+        # Print a space after every item EXCEPT the last one (100)
         if i < 100:
             print(" ", end="")
     print()
