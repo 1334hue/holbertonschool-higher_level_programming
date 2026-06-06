@@ -1,3 +1,3 @@
 #!/usr/bin/python3
-# number = 98 (This line is usually hidden/pre-set by the checker)
+number = 98
 print(f"{number} Battery street")
