@@ -1,0 +1,2 @@
+# Assuming lines 1-2 provide: str1 = "Holberton", str2 = "School"
+print(f"Welcome to {str1} {str2}!")
