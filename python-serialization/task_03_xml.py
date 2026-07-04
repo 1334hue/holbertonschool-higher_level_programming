@@ -2,7 +2,7 @@
 import xml.etree.ElementTree as ET
 
 def serialize_to_xml(dictionary, filename):
-    """Serializes a Python dictionary into an XML file."""
+    """Serializes a Python dictionary into an XML file using a <data> root."""
     root = ET.Element("data")
     
     for key, value in dictionary.items():
@@ -10,31 +10,16 @@ def serialize_to_xml(dictionary, filename):
         child.text = str(value)
         
     tree = ET.ElementTree(root)
-    tree.write(filename, encoding='utf-8', xml_declaration=True)
+    # Writing the tree to the specified filename
+    tree.write(filename, encoding='utf-8')
 
 def deserialize_from_xml(filename):
-    """Parses an XML file and reconstructs the Python dictionary."""
+    """Parses the XML file and reconstructs the dictionary with string values."""
     try:
         tree = ET.parse(filename)
         root = tree.getroot()
         
-        result_dict = {}
-        for child in root:
-            val = child.text
-            # Attempt basic type conversions for numbers/booleans
-            if val == "True":
-                result_dict[child.tag] = True
-            elif val == "False":
-                result_dict[child.tag] = False
-            else:
-                try:
-                    if '.' in val:
-                        result_dict[child.tag] = float(val)
-                    else:
-                        result_dict[child.tag] = int(val)
-                except (ValueError, TypeError):
-                    result_dict[child.tag] = val
-                    
-        return result_dict
+        # Reconstruct the dictionary using the tag as key and text as value
+        return {child.tag: child.text for child in root}
     except Exception:
         return None
